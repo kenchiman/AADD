@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiVersion": {
+            "value": "2017-06-01"
+        },
+        "domainConfigurationType": {
+            "value": "FullySynced"
+        },
+        "domainName": {
+            "value": "ドメイン名（任意名）"
+        },
+        "filteredSync": {
+            "value": "Disabled"
+        },
+        "location": {
+            "value": "eastus"
+        },
+        "subnetName": {
+            "value": "aadds-subnet"
+        },
+        "vnetName": {
+            "value": "aadds-vnet"
+        },
+        "vnetResourceGroup": {
+            "value": "example-rg"
+        }
+    }
+}

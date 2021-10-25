@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiVersion": {
+            "type": "string"
+        },
+        "domainConfigurationType": {
+            "type": "string"
+        },
+        "domainName": {
+            "type": "string"
+        },
+        "filteredSync": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "subnetName": {
+            "type": "string"
+        },
+        "vnetName": {
+            "type": "string"
+        },
+      "vnetResourceGroup": {
+          "type": "string"
+      }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('apiVersion')]",
+            "type": "Microsoft.AAD/domainServices",
+            "name": "[parameters('domainName')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "properties": {
+                "domainName": "[parameters('domainName')]",
+                "subnetId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+                "filteredSync": "[parameters('filteredSync')]",
+                "resourceForestSettings": {
+                    "settings": []
+                },
+                "domainConfigurationType": "[parameters('domainConfigurationType')]",
+                "ldapsSettings": {
+                    "ldaps": "Disabled",
+                    "externalAccess": "Disabled"
+                },
+                "notificationSettings": {
+                    "notifyGlobalAdmins": "Disabled",
+                    "notifyDcAdmins": "Disabled",
+                    "additionalRecipients": []
+                    },
+                "replicaSets":[
+                    {
+                        "location": "eastus",
+                        "subnetId": "/subscriptions/サブスクリプションID/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworks/aadds-vnet/aadds-subnet"
+                    }
+                ],
+                  "sku": "Standard"
+            }
+        }
+    ],
+    "outputs": {}
+  }
